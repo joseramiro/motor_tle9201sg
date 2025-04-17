@@ -11,12 +11,12 @@
 
 void TLE9201SG_StartTranmission(SPIConfiguration_t *spi)
 {
-    spi->cs_clear();    //Schedule_IO_Exp_Update_Pot_CS(module, 0);   
+    spi->cs.clear();    //Schedule_IO_Exp_Update_Pot_CS(module, 0);   
 }
 
 void TLE9201SG_EndTranmission(SPIConfiguration_t *spi)
 {
-    spi->cs_set();  //Schedule_IO_Exp_Update_Pot_CS(module, 1);
+    spi->cs.set();  //Schedule_IO_Exp_Update_Pot_CS(module, 1);
 }
 
 void TLE9201SG_Enable(TLE9201SGConf_t* conf)
