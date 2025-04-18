@@ -9,7 +9,7 @@
  * @date 2025-03-18
  */
 
-#include "libs/util/plibs_utils.h"  // used for SPI struct
+#include "libs/common_c_libs/plib_comm_struct.h"
 
 /** 
  * @defgroup TLE9201SG_Registers Registres du TLE9201SG
