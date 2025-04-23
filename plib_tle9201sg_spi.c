@@ -12,7 +12,7 @@
 
 /* ==== Fonctions SPI ==== */
 
-void TLE9201SG_Write(SPIConfiguration_t *spi, unsigned char* data)
+void TLE9201SG_Write(SPI_t *spi, unsigned char* data)
 {
     if(spi->channel == SPI_CH1)
         SPI1_Write(data, 1);
@@ -20,7 +20,7 @@ void TLE9201SG_Write(SPIConfiguration_t *spi, unsigned char* data)
         SPI2_Write(data, 1);
 }
 
-void TLE9201SG_Read(SPIConfiguration_t *spi, unsigned char* data)
+void TLE9201SG_Read(SPI_t *spi, unsigned char* data)
 {
     if(spi->channel == SPI_CH1)
         SPI1_Read(data, 1);
@@ -28,7 +28,7 @@ void TLE9201SG_Read(SPIConfiguration_t *spi, unsigned char* data)
         SPI2_Read(data, 1);
 }
 
-void TLE9201SG_WriteRead(SPIConfiguration_t *spi, unsigned char reg, unsigned char* readData)
+void TLE9201SG_WriteRead(SPI_t *spi, unsigned char reg, unsigned char* readData)
 {
     TLE9201SG_Write(spi, &reg);
     TLE9201SG_Read(spi, readData);

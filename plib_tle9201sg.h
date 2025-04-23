@@ -51,20 +51,20 @@ typedef struct
     unsigned int(*get_pwm)(void);       /**< Fonction pour récupérer la valeur actuelle du PWM */
     void(*set_freq)(unsigned int);      /**< Fonction pour définir la fréquence du PWM */
     unsigned int(*get_freq)(void);      /**< Fonction pour récupérer la valeur actuelle du PWM */
-    SPIConfiguration_t spi;               /**< Configuration SPI associée au module */
+    SPI_t spi;               /**< Configuration SPI associée au module */
 }TLE9201SGConf_t;
 
 /**
  * @brief Démarre une transmission SPI avec le module TLE9201SG.
  * @param spi Pointeur vers la configuration SPI utilisée pour la communication.
  */
-void TLE9201SG_StartTranmission(SPIConfiguration_t *spi);
+void TLE9201SG_StartTranmission(SPI_t *spi);
 
 /**
  * @brief Termine une transmission SPI avec le module TLE9201SG.
  * @param spi Pointeur vers la configuration SPI utilisée pour la communication.
  */
-void TLE9201SG_EndTranmission(SPIConfiguration_t *spi);
+void TLE9201SG_EndTranmission(SPI_t *spi);
 
 /**
  * @brief Active le module TLE9201SG.

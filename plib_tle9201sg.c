@@ -9,12 +9,12 @@
 #include "plib_tle9201sg.h"
 #include "plib_tle9201sg_spi.h"
 
-void TLE9201SG_StartTranmission(SPIConfiguration_t *spi)
+void TLE9201SG_StartTranmission(SPI_t *spi)
 {
     spi->cs.clear();    //Schedule_IO_Exp_Update_Pot_CS(module, 0);   
 }
 
-void TLE9201SG_EndTranmission(SPIConfiguration_t *spi)
+void TLE9201SG_EndTranmission(SPI_t *spi)
 {
     spi->cs.set();  //Schedule_IO_Exp_Update_Pot_CS(module, 1);
 }
