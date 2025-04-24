@@ -2,7 +2,7 @@
  * @file plib_tle9201sg.c
  * @brief Pilote du pont H TLE9201SG
  * @author Ramiro Najera
- * @version 1.0.0
+ * @version 1.0.1
  * @date 2025-04-24
  * @copyright Copyright (c) 2025
  */

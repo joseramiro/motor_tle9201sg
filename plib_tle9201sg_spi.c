@@ -2,7 +2,7 @@
  * @file plib_tle9201sg_spi.c
  * @brief Pilote SPI pour le TLE9201SG (driver de moteur DC)
  * @author Ramiro Najera
- * @version 1.0.0
+ * @version 1.0.1
  * @date 2025-04-24
  * @copyright Copyright (c) 2025
  */

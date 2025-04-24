@@ -5,7 +5,7 @@
  * @file plib_tle9201sg.h
  * @brief Pilote du pont H TLE9201SG
  * @author Ramiro Najera
- * @version 1.0.0
+ * @version 1.0.1
  * @date 2025-04-24
  * @copyright Copyright (c) 2025
  */
@@ -127,6 +127,12 @@ unsigned int TLE9201SG_GetFrequency(TLE9201SG_t *obj);
  */
 void TLE9201SG_Init(TLE9201SG_t* obj);
 
+/**
+ * @brief Lir un registre du module TLE9201SG
+ * @param obj Pointeur vers la structure de configuration du module.
+ * @param reg Registre à lire
+ * @param data Données lues
+ */
 void TLE9201SG_ReadRegister(TLE9201SG_t* obj, unsigned char reg, unsigned char* data);
 
 /**
