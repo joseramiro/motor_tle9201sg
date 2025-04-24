@@ -2,8 +2,9 @@
  * @file plib_tle9201sg.c
  * @brief Pilote du pont H TLE9201SG
  * @author Ramiro Najera
- * @version 1.0
- * @date 2025-03-18
+ * @version 1.0.0
+ * @date 2025-04-24
+ * @copyright Copyright (c) 2025
  */
 
 #include "plib_tle9201sg.h"
@@ -11,89 +12,89 @@
 
 void TLE9201SG_StartTranmission(SPI_t *spi)
 {
-    spi->cs.clear();    //Schedule_IO_Exp_Update_Pot_CS(module, 0);   
+    spi->cs.clear();
 }
 
 void TLE9201SG_EndTranmission(SPI_t *spi)
 {
-    spi->cs.set();  //Schedule_IO_Exp_Update_Pot_CS(module, 1);
+    spi->cs.set();
 }
 
-void TLE9201SG_Enable(TLE9201SGConf_t* conf)
+void TLE9201SG_Enable(TLE9201SG_t* obj)
 {
-    conf->dis_clear();  //Schedule_IO_Exp_Update_Pot_DIS(module, 0);
+    obj->dis.clear();
 }
 
-void TLE9201SG_Disable(TLE9201SGConf_t* conf)
+void TLE9201SG_Disable(TLE9201SG_t* obj)
 {
-    conf->dis_set();    //Schedule_IO_Exp_Update_Pot_DIS(module, 1);
+    obj->dis.set();
 }
 
-void TLE9201SG_SetPWM(TLE9201SGConf_t* conf, unsigned int value)
+void TLE9201SG_SetPWM(TLE9201SG_t* obj, unsigned int value)
 {
-    conf->set_pwm(value);
+    obj->set_pwm(value);
 }
 
-unsigned int TLE9201SG_GetPWM(TLE9201SGConf_t* conf) 
+unsigned int TLE9201SG_GetPWM(TLE9201SG_t* obj) 
 {
-    return conf->get_pwm();
+    return obj->get_pwm();
 }
 
-void TLE9201SG_SetFrequency(TLE9201SGConf_t* conf, unsigned int frequency)
+void TLE9201SG_SetFrequency(TLE9201SG_t* obj, unsigned int frequency)
 {
-    conf->set_freq(frequency);
+    obj->set_freq(frequency);
 }
 
-unsigned int TLE9201SG_GetFrequency(TLE9201SGConf_t *conf)
+unsigned int TLE9201SG_GetFrequency(TLE9201SG_t *obj)
 {
-    return conf->get_freq();
+    return obj->get_freq();
 }
 
-void TLE9201SG_SetDir(TLE9201SGConf_t* conf, unsigned char direction)
+void TLE9201SG_SetDir(TLE9201SG_t* obj, unsigned char direction)
 {
     // Set direction
     if(direction == TLE9201SG_DIRECTION_FORWARD)
-        conf->dir_fw();
+        obj->dir.set();
     else if (direction == TLE9201SG_DIRECTION_BACKWARD)
-        conf->dir_bw();
+        obj->dir.clear();
 }
 
-void TLE9201SG_Init(TLE9201SGConf_t* conf)
+void TLE9201SG_Init(TLE9201SG_t* obj)
 {
-    TLE9201SG_SetPWM(conf, 0);
-    TLE9201SG_Disable(conf);
+    TLE9201SG_SetPWM(obj, 0);
+    TLE9201SG_Disable(obj);
     //todo: other init params ?
 }
 
-void TLE9201SG_ReadRegister(TLE9201SGConf_t* conf, unsigned char reg, unsigned char* data)
+void TLE9201SG_ReadRegister(TLE9201SG_t* obj, unsigned char reg, unsigned char* data)
 {
-    TLE9201SG_StartTranmission(&conf->spi);
-    TLE9201SG_WriteRead(&conf->spi, reg, data);
-    TLE9201SG_EndTranmission(&conf->spi);
+    TLE9201SG_StartTranmission(&obj->spi);
+    TLE9201SG_WriteRead(&obj->spi, reg, data);
+    TLE9201SG_EndTranmission(&obj->spi);
 }
 
-void TLE9201SG_ReadVersionReg(TLE9201SGConf_t* conf, unsigned char* data)
+void TLE9201SG_ReadVersionReg(TLE9201SG_t* obj, unsigned char* data)
 {
-    TLE9201SG_ReadRegister(conf, TLE9201SG_REG_RD_REV, data);
+    TLE9201SG_ReadRegister(obj, TLE9201SG_REG_RD_REV, data);
 }
 
-void TLE9201SG_ReadControlReg(TLE9201SGConf_t* conf, unsigned char* control)
+void TLE9201SG_ReadControlReg(TLE9201SG_t* obj, unsigned char* control)
 {
-    TLE9201SG_ReadRegister(conf, TLE9201SG_REG_RD_CTRL, control);
+    TLE9201SG_ReadRegister(obj, TLE9201SG_REG_RD_CTRL, control);
 }
 
-void TLE9201SG_ReadDiagnosisReg(TLE9201SGConf_t* conf, unsigned char* status)
+void TLE9201SG_ReadDiagnosisReg(TLE9201SG_t* obj, unsigned char* status)
 {
-    TLE9201SG_ReadRegister(conf, TLE9201SG_REG_RD_DIA, status);
+    TLE9201SG_ReadRegister(obj, TLE9201SG_REG_RD_DIA, status);
 }
 
-void TLE9201SG_StartMotor(TLE9201SGConf_t* conf, unsigned char direction)
+void TLE9201SG_StartMotor(TLE9201SG_t* obj, unsigned char direction)
 {
-    TLE9201SG_SetDir(conf, direction);
-    TLE9201SG_Enable(conf);
+    TLE9201SG_SetDir(obj, direction);
+    TLE9201SG_Enable(obj);
 }
 
-void TLE9201SG_StopMotor(TLE9201SGConf_t* conf)
+void TLE9201SG_StopMotor(TLE9201SG_t* obj)
 {
-    TLE9201SG_Disable(conf);
+    TLE9201SG_Disable(obj);
 }
