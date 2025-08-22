@@ -2,60 +2,75 @@
  * @file plib_tle9201sg.c
  * @brief Pilote du pont H TLE9201SG
  * @author Ramiro Najera
- * @version 1.0.1
+ * @version 1.0.2
  * @date 2025-04-24
  * @copyright Copyright (c) 2025
  */
 
+#include <stddef.h>
 #include "plib_tle9201sg.h"
 #include "plib_tle9201sg_spi.h"
 
 void TLE9201SG_StartTranmission(SPI_t *spi)
 {
-    spi->cs.clear();
+    if(spi->en.clear != NULL)
+        spi->en.clear();
+    if(spi->cs.clear != NULL) 
+        spi->cs.clear();
 }
 
 void TLE9201SG_EndTranmission(SPI_t *spi)
 {
-    spi->cs.set();
+    if(spi->cs.set != NULL)
+        spi->cs.set();
+    if(spi->en.set != NULL)
+        spi->en.set();
 }
 
 void TLE9201SG_Enable(TLE9201SG_t* obj)
 {
-    obj->dis.clear();
+    if(obj->dis.clear != NULL)
+        obj->dis.clear();
 }
 
 void TLE9201SG_Disable(TLE9201SG_t* obj)
 {
-    obj->dis.set();
+    if(obj->dis.set != NULL)
+        obj->dis.set();
 }
 
 void TLE9201SG_SetPWM(TLE9201SG_t* obj, unsigned int value)
 {
-    obj->set_pwm(value);
+    if(obj->set_pwm != NULL)
+        obj->set_pwm(value);
 }
 
 unsigned int TLE9201SG_GetPWM(TLE9201SG_t* obj) 
 {
-    return obj->get_pwm();
+    if(obj->get_pwm != NULL)
+        return obj->get_pwm();
+    return 0;
 }
 
 void TLE9201SG_SetFrequency(TLE9201SG_t* obj, unsigned int frequency)
 {
-    obj->set_freq(frequency);
+    if(obj->set_freq != NULL)
+        obj->set_freq(frequency);
 }
 
 unsigned int TLE9201SG_GetFrequency(TLE9201SG_t *obj)
 {
-    return obj->get_freq();
+    if(obj->get_freq != NULL)
+        return obj->get_freq();
+    return 0;
 }
 
 void TLE9201SG_SetDir(TLE9201SG_t* obj, unsigned char direction)
 {
     // Set direction
-    if(direction == TLE9201SG_DIRECTION_FORWARD)
+    if(obj->dir.set != NULL && direction == TLE9201SG_DIRECTION_FORWARD)
         obj->dir.set();
-    else if (direction == TLE9201SG_DIRECTION_BACKWARD)
+    else if (obj->dir.set != NULL && direction == TLE9201SG_DIRECTION_BACKWARD)
         obj->dir.clear();
 }
 
