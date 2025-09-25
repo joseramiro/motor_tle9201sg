@@ -2,7 +2,7 @@
  * @file plib_tle9201sg.c
  * @brief Pilote du pont H TLE9201SG
  * @author Ramiro Najera
- * @version 1.0.2
+ * @version 1.0.3
  * @date 2025-04-24
  * @copyright Copyright (c) 2025
  */
@@ -13,65 +13,65 @@
 
 void TLE9201SG_StartTranmission(SPI_t *spi)
 {
-    if(spi->en.clear != NULL)
-        spi->en.clear();
-    if(spi->cs.clear != NULL) 
-        spi->cs.clear();
+    if(spi->pinEN.Clear != NULL)
+        spi->pinEN.Clear();
+    if(spi->pinCS.Clear != NULL) 
+        spi->pinCS.Clear();
 }
 
 void TLE9201SG_EndTranmission(SPI_t *spi)
 {
-    if(spi->cs.set != NULL)
-        spi->cs.set();
-    if(spi->en.set != NULL)
-        spi->en.set();
+    if(spi->pinCS.Set != NULL)
+        spi->pinCS.Set();
+    if(spi->pinEN.Set != NULL)
+        spi->pinEN.Set();
 }
 
 void TLE9201SG_Enable(TLE9201SG_t* obj)
 {
-    if(obj->dis.clear != NULL)
-        obj->dis.clear();
+    if(obj->pinDIS.Clear != NULL)
+        obj->pinDIS.Clear();
 }
 
 void TLE9201SG_Disable(TLE9201SG_t* obj)
 {
-    if(obj->dis.set != NULL)
-        obj->dis.set();
+    if(obj->pinDIS.Set != NULL)
+        obj->pinDIS.Set();
 }
 
 void TLE9201SG_SetPWM(TLE9201SG_t* obj, unsigned int value)
 {
-    if(obj->set_pwm != NULL)
-        obj->set_pwm(value);
+    if(obj->SetPwm != NULL)
+        obj->SetPwm(value);
 }
 
 unsigned int TLE9201SG_GetPWM(TLE9201SG_t* obj) 
 {
-    if(obj->get_pwm != NULL)
-        return obj->get_pwm();
+    if(obj->GetPwm != NULL)
+        return obj->GetPwm();
     return 0;
 }
 
 void TLE9201SG_SetFrequency(TLE9201SG_t* obj, unsigned int frequency)
 {
-    if(obj->set_freq != NULL)
-        obj->set_freq(frequency);
+    if(obj->SetFrequency != NULL)
+        obj->SetFrequency(frequency);
 }
 
 unsigned int TLE9201SG_GetFrequency(TLE9201SG_t *obj)
 {
-    if(obj->get_freq != NULL)
-        return obj->get_freq();
+    if(obj->GetFrequency != NULL)
+        return obj->GetFrequency();
     return 0;
 }
 
 void TLE9201SG_SetDir(TLE9201SG_t* obj, unsigned char direction)
 {
     // Set direction
-    if(obj->dir.set != NULL && direction == TLE9201SG_DIRECTION_FORWARD)
-        obj->dir.set();
-    else if (obj->dir.set != NULL && direction == TLE9201SG_DIRECTION_BACKWARD)
-        obj->dir.clear();
+    if(obj->pinDIR.Set != NULL && direction == TLE9201SG_DIRECTION_FORWARD)
+        obj->pinDIR.Set();
+    else if (obj->pinDIR.Set != NULL && direction == TLE9201SG_DIRECTION_BACKWARD)
+        obj->pinDIR.Clear();
 }
 
 void TLE9201SG_Init(TLE9201SG_t* obj)
