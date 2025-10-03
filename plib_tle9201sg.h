@@ -5,7 +5,7 @@
  * @file plib_tle9201sg.h
  * @brief Pilote du pont H TLE9201SG
  * @author Ramiro Najera
- * @version 1.0.2
+ * @version 1.0.3
  * @date 2025-04-24
  * @copyright Copyright (c) 2025
  */
@@ -54,17 +54,17 @@ typedef struct
     /** @brief Identifiant du module */
     unsigned char id;
     /** @brief Fonction pour piloter la broche DIS (disabled) */
-    GPIO_t dis;
+    GPIO_t pinDIS;
     /** @brief Fonction pour piloter la broche DIR (direction) */
-    GPIO_t dir;
+    GPIO_t pinDIR;
     /** @brief Fonction pour définir la valeur du PWM */
-    void(*set_pwm)(unsigned int);
+    void(*SetPwm)(unsigned int);
     /** @brief Fonction pour récupérer la valeur actuelle du PWM */
-    unsigned int(*get_pwm)(void);
+    unsigned int(*GetPwm)(void);
     /** @brief Fonction pour définir la fréquence du PWM */
-    void(*set_freq)(unsigned int);
+    void(*SetFrequency)(unsigned int);
     /** @brief Fonction pour récupérer la valeur actuelle du PWM */
-    unsigned int(*get_freq)(void);
+    unsigned int(*GetFrequency)(void);
     /** @brief Configuration SPI associée au module */
     SPI_t spi;
 }TLE9201SG_t;

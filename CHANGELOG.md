@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2025-10-03
+- Renamed GPIO pins and pointer functions
+
 ## [1.0.2] - 2025-08-22
 - Added NULL check of struct (cs, pwm, frequency, dir, pwm) functions
 
