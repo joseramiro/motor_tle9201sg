@@ -5,7 +5,7 @@
  * @file plib_tle9201sg.h
  * @brief Pilote du pont H TLE9201SG
  * @author Ramiro Najera
- * @version 1.0.3
+ * @version 1.0.4
  * @date 2025-04-24
  * @copyright Copyright (c) 2025
  */
@@ -128,6 +128,14 @@ unsigned int TLE9201SG_GetFrequency(TLE9201SG_t *obj);
 void TLE9201SG_Init(TLE9201SG_t* obj);
 
 /**
+ * @brief Initialise une liste de modules TLE9201SG
+ * @param objList Liste de modules TLE9201SG
+ * @param size Taille de liste
+ * @param frequency Frequence de PWM pour toute la liste
+ */
+void TLE9201SG_InitList(TLE9201SG_t *objList, unsigned char size, unsigned int frequency);
+
+/**
  * @brief Lir un registre du module TLE9201SG
  * @param obj Pointeur vers la structure de configuration du module.
  * @param reg Registre à lire
@@ -167,8 +175,9 @@ void TLE9201SG_SetDir(TLE9201SG_t* obj, unsigned char direction);
  * @brief Démarre le moteur dans la direction spécifiée.
  * @param obj Pointeur vers la structure de configuration du module.
  * @param direction Direction du moteur (TLE9201SG_DIRECTION_FORWARD ou TLE9201SG_DIRECTION_BACKWARD).
+ * @param pwm Vitesse du moteur (PWM)
  */
-void TLE9201SG_StartMotor(TLE9201SG_t* obj, unsigned char direction);
+void TLE9201SG_StartMotor(TLE9201SG_t* obj, unsigned char direction, unsigned char pwm);
 
 /**
  * @brief Arrête le moteur.

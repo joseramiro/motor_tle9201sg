@@ -2,7 +2,7 @@
  * @file plib_tle9201sg.c
  * @brief Pilote du pont H TLE9201SG
  * @author Ramiro Najera
- * @version 1.0.3
+ * @version 1.0.4
  * @date 2025-04-24
  * @copyright Copyright (c) 2025
  */
@@ -81,6 +81,17 @@ void TLE9201SG_Init(TLE9201SG_t* obj)
     //todo: other init params ?
 }
 
+void TLE9201SG_InitList(TLE9201SG_t *objList, unsigned char size, unsigned int frequency)
+{ 
+    // Init each TLE9201SG module
+    for(unsigned char i = 0; i < size; i++)
+    {
+        TLE9201SG_Init(&objList[i]);
+    }
+    // Set frequency (one module is enough)
+    TLE9201SG_SetFrequency(&objList[0], frequency);
+}
+
 void TLE9201SG_ReadRegister(TLE9201SG_t* obj, unsigned char reg, unsigned char* data)
 {
     TLE9201SG_StartTranmission(&obj->spi);
@@ -103,13 +114,15 @@ void TLE9201SG_ReadDiagnosisReg(TLE9201SG_t* obj, unsigned char* status)
     TLE9201SG_ReadRegister(obj, TLE9201SG_REG_RD_DIA, status);
 }
 
-void TLE9201SG_StartMotor(TLE9201SG_t* obj, unsigned char direction)
+void TLE9201SG_StartMotor(TLE9201SG_t* obj, unsigned char direction, unsigned char pwm)
 {
     TLE9201SG_SetDir(obj, direction);
+    obj->SetPwm(pwm);
     TLE9201SG_Enable(obj);
 }
 
 void TLE9201SG_StopMotor(TLE9201SG_t* obj)
 {
     TLE9201SG_Disable(obj);
+    obj->SetPwm(0);
 }
