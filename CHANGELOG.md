@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.5] - 2025-11-13
+- Added check size of InitList function and limit size to 16
+
 ## [1.0.4] - 2025-10-07
 - Added InitList function, modified StartMotor function (now set PWM directly)
 

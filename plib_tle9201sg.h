@@ -5,7 +5,7 @@
  * @file plib_tle9201sg.h
  * @brief Pilote du pont H TLE9201SG
  * @author Ramiro Najera
- * @version 1.0.4
+ * @version 1.0.5
  * @date 2025-04-24
  * @copyright Copyright (c) 2025
  */
@@ -124,16 +124,18 @@ unsigned int TLE9201SG_GetFrequency(TLE9201SG_t *obj);
 /**
  * @brief Initialise le module TLE9201SG avec la configuration fournie.
  * @param obj Pointeur vers la structure de configuration du module.
+ * @return unsigned char 0 ok, 1 erreur
  */
-void TLE9201SG_Init(TLE9201SG_t* obj);
+unsigned char TLE9201SG_InitChip(TLE9201SG_t* obj);
 
 /**
- * @brief Initialise une liste de modules TLE9201SG
+ * @brief Initialise une liste de modules TLE9201SG (taille max 16)
  * @param objList Liste de modules TLE9201SG
  * @param size Taille de liste
  * @param frequency Frequence de PWM pour toute la liste
+ * @return unsigned int Code d'erreur (bitmap de modules de la liste. voir TLE9201SG_InitChip)
  */
-void TLE9201SG_InitList(TLE9201SG_t *objList, unsigned char size, unsigned int frequency);
+unsigned int TLE9201SG_InitList(TLE9201SG_t *objList, unsigned char size, unsigned int frequency);
 
 /**
  * @brief Lir un registre du module TLE9201SG

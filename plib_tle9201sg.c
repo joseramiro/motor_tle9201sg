@@ -2,7 +2,7 @@
  * @file plib_tle9201sg.c
  * @brief Pilote du pont H TLE9201SG
  * @author Ramiro Najera
- * @version 1.0.4
+ * @version 1.0.5
  * @date 2025-04-24
  * @copyright Copyright (c) 2025
  */
@@ -10,6 +10,7 @@
 #include <stddef.h>
 #include "plib_tle9201sg.h"
 #include "plib_tle9201sg_spi.h"
+#include "libs/common_c_libs/plib_data_struct.h"
 
 void TLE9201SG_StartTranmission(SPI_t *spi)
 {
@@ -74,22 +75,30 @@ void TLE9201SG_SetDir(TLE9201SG_t* obj, unsigned char direction)
         obj->pinDIR.Clear();
 }
 
-void TLE9201SG_Init(TLE9201SG_t* obj)
+unsigned char TLE9201SG_InitChip(TLE9201SG_t* obj)
 {
     TLE9201SG_SetPWM(obj, 0);
     TLE9201SG_Disable(obj);
+    return 0;   // todo: return real error code
     //todo: other init params ?
 }
 
-void TLE9201SG_InitList(TLE9201SG_t *objList, unsigned char size, unsigned int frequency)
-{ 
+unsigned int TLE9201SG_InitList(TLE9201SG_t *objList, unsigned char size, unsigned int frequency)
+{
+    unsigned int errorCode = 0;
+    // Check max size: return error code
+    if(size > 16)
+        return 0xFF;
     // Init each TLE9201SG module
     for(unsigned char i = 0; i < size; i++)
     {
-        TLE9201SG_Init(&objList[i]);
+        if(TLE9201SG_InitChip(&objList[i]))
+            SET_FLAG_BIT(errorCode, i);
     }
     // Set frequency (one module is enough)
     TLE9201SG_SetFrequency(&objList[0], frequency);
+    // Return error code
+    return errorCode;
 }
 
 void TLE9201SG_ReadRegister(TLE9201SG_t* obj, unsigned char reg, unsigned char* data)
