@@ -78,7 +78,6 @@ void TLE9201SG_Init(TLE9201SG_t* obj)
 {
     TLE9201SG_SetPWM(obj, 0);
     TLE9201SG_Disable(obj);
-    //todo: other init params ?
 }
 
 void TLE9201SG_InitList(TLE9201SG_t *objList, unsigned char size, unsigned int frequency)
