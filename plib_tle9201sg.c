@@ -139,15 +139,8 @@ void TLE9201SG_InitList(TLE9201SG_t *objList, const uint8_t size, const uint16_t
 
 void TLE9201SG_SetFrequency(TLE9201SG_t* obj, const uint16_t frequency)
 {
-    if(obj->SetFrequency != NULL)
+    if(obj->SetFrequency)
         obj->SetFrequency(frequency);
-}
-
-uint16_t TLE9201SG_GetFrequency(TLE9201SG_t *obj)
-{
-    if(obj->GetFrequency != NULL)
-        return obj->GetFrequency();
-    return 0;
 }
 
 void TLE9201SG_ReadVersionReg(TLE9201SG_t* obj, uint8_t* data)

@@ -31,8 +31,6 @@ typedef struct
     void(*SetPwm)(uint16_t);
     /** @brief Fonction pour définir la fréquence du PWM */
     void(*SetFrequency)(uint16_t);
-    /** @brief Fonction pour récupérer la valeur actuelle du PWM */
-    uint16_t(*GetFrequency)(void);
     /** @brief Configuration SPI associée au module */
     SPI_t spi;
 }TLE9201SG_t;
@@ -59,13 +57,6 @@ void TLE9201SG_InitList(TLE9201SG_t *objList, const uint8_t size, const uint16_t
  * @param frequency Fréquence en Hz
  */
 void TLE9201SG_SetFrequency(TLE9201SG_t* obj, const uint16_t frequency);
-
-/**
- * @brief Récupère la valeur de frésuence du signal PWM
- * @param obj Pointeur vers la structure de configuration du module
- * @return uint16_t Valeur actuelle de fréquence en Hz
- */
-uint16_t TLE9201SG_GetFrequency(TLE9201SG_t *obj);
 
 /**
  * @brief Lit la version du firmware ou de la puce TLE9201SG.
