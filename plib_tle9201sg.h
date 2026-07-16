@@ -29,8 +29,6 @@ typedef struct
     GPIO_t pinDIR;
     /** @brief Fonction pour définir la valeur du PWM */
     void(*SetPwm)(uint16_t);
-    /** @brief Fonction pour récupérer la valeur actuelle du PWM */
-    uint16_t(*GetPwm)(void);
     /** @brief Fonction pour définir la fréquence du PWM */
     void(*SetFrequency)(uint16_t);
     /** @brief Fonction pour récupérer la valeur actuelle du PWM */
@@ -54,20 +52,6 @@ void TLE9201SG_Init(TLE9201SG_t* obj);
  * @param frequency Frequence de PWM pour toute la liste
  */
 void TLE9201SG_InitList(TLE9201SG_t *objList, const uint8_t size, const uint16_t frequency);
-
-/**
- * @brief Définit la valeur du signal PWM pour le contrôle du moteur.
- * @param obj Pointeur vers la structure de configuration du module.
- * @param value Valeur du PWM (0 - 100%).
- */
-void TLE9201SG_SetPWM(TLE9201SG_t* obj, const uint16_t value);
-
-/**
- * @brief Récupère la valeur actuelle du signal PWM.
- * @param obj Pointeur vers la structure de configuration du module.
- * @return Valeur actuelle du PWM.
- */
-uint16_t TLE9201SG_GetPWM(TLE9201SG_t* obj);
 
 /**
  * @brief Définit la valeur de fréquence du signal PWM pour le contrôle du moteur

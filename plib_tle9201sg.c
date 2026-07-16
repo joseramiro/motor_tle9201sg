@@ -112,11 +112,17 @@ static void Move(TLE9201SG_t* obj, const uint8_t direction, const uint8_t pwm)
     Enable(obj);
 }
 
+static void SetPWM(TLE9201SG_t* obj, const uint16_t value)
+{
+    if(obj->SetPwm)
+        obj->SetPwm(value);
+}
+
 // Public API
 
 void TLE9201SG_Init(TLE9201SG_t* obj)
 {
-    TLE9201SG_SetPWM(obj, 0);
+    SetPWM(obj, 0);
     Disable(obj);
 }
 
@@ -129,19 +135,6 @@ void TLE9201SG_InitList(TLE9201SG_t *objList, const uint8_t size, const uint16_t
     }
     // Set frequency (one module is enough)
     TLE9201SG_SetFrequency(&objList[0], frequency);
-}
-
-void TLE9201SG_SetPWM(TLE9201SG_t* obj, const uint16_t value)
-{
-    if(obj->SetPwm)
-        obj->SetPwm(value);
-}
-
-uint16_t TLE9201SG_GetPWM(TLE9201SG_t* obj) 
-{
-    if(obj->GetPwm)
-        return obj->GetPwm();
-    return 0;
 }
 
 void TLE9201SG_SetFrequency(TLE9201SG_t* obj, const uint16_t frequency)
